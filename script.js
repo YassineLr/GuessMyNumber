@@ -18,19 +18,25 @@ console.log(document.querySelector('.guess').value);
 
 const secretNumber = Math.trunc(Math.random()*20) + 1;
 let score = 10;
+let highScore = 0;
 // document.querySelector('.number').textContent = secretNumber;
 
 const guessing = function(){
-    const guess = Number(document.querySelector('.guess').value);
-    console.log(guess);
-    if(!guess){
+    
+    const guesss = document.querySelector('.guess').value;
+    if(!guesss){
         document.querySelector('.message').textContent = '⛔️ No number!'; 
     }
-    else if (guess > 20){
-        document.querySelector('.message').textContent = '⛔️ Choose a number between 0 and 20'; 
+    const guess = Number(guesss);
+    console.log(guess);
+    if (guess > 20 || guess < 1){
+        document.querySelector('.message').textContent = '⛔️ the number is Between 1 and 20'; 
     }
     else if (guess === secretNumber) {
         document.querySelector('.message').textContent = '🎉 Correct Number!';
+        document.querySelector('body').style.backgroundColor = '#60b347';
+        document.querySelector('.number').style.width = '30rem';
+        document.querySelector('.number').textContent = secretNumber;
     }
     else if(guess > secretNumber){
         if(score > 1){
@@ -55,4 +61,16 @@ const guessing = function(){
         }
     }
 };
+
+const   playAgain = function(){
+    document.querySelector('.message').textContent = 'Start guessing...';
+    document.querySelector('body').style.backgroundColor = '#222';
+    score = 10;
+    document.querySelector('.score').textContent = score;
+}
+
+const savingHighScore = function(newScore,oldScore){
+    
+};
 document.querySelector('.check').addEventListener('click',guessing);
+document.querySelector('.again').addEventListener('click', playAgain);
